@@ -1,8 +1,6 @@
 package data.model;
 
-import org.newdawn.slick.opengl.Texture;
-
-import static helpers.OpenGLAssistent.LoadTexture;
+import static helpers.OpenGLAssistent.loadTexture;
 
 public class Plant extends Placable {
 
@@ -10,7 +8,7 @@ public class Plant extends Placable {
     //protected double length, lengthMax, spaceBetween,age,ageMax;
 
     public Plant(PlantType type, float x, float y, int width, int height) {
-        super(LoadTexture(type.getTexturePath()), type.name(), x, y, width, height);
+        super(loadTexture(type.getTexturePath()), type.name(), x, y, width, height);
         this.type = type;
     }
 

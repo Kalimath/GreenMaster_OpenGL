@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static helpers.OpenGLAssistent.DrawQuadTex;
+import static helpers.OpenGLAssistent.drawQuadTex;
 import static helpers.OpenGLAssistent.TILESIZE;
 
 public class TileZone {
@@ -72,7 +72,7 @@ public class TileZone {
         for (Tile t: zone) {
             t.draw();
         }
-        DrawQuadTex(filler.getTexture(), xPlaceMostUpperLeft*TILESIZE, yPlaceMostUpperLeft*TILESIZE, calculateWidth(), calculateHeight());
+        drawQuadTex(filler.getTexture(), xPlaceMostUpperLeft*TILESIZE, yPlaceMostUpperLeft*TILESIZE, calculateWidth(), calculateHeight());
     }
 
     // returns total height of the zone

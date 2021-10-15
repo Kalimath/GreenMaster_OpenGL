@@ -2,7 +2,7 @@ package data.model;
 
 import org.newdawn.slick.opengl.Texture;
 
-import static helpers.OpenGLAssistent.DrawQuadTex;
+import static helpers.OpenGLAssistent.drawQuadTex;
 
 public abstract class Placable {
     protected int  width, height;
@@ -68,6 +68,6 @@ public abstract class Placable {
     }
 
     public void draw(){
-        DrawQuadTex(texture, x, y, width, height);
+        drawQuadTex(texture, x, y, width, height);
     }
 }

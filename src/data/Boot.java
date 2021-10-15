@@ -12,7 +12,7 @@ public class Boot {
 
     public Boot(){
 
-        LaunchSession();
+        launchSession();
 
         int[][] map = {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

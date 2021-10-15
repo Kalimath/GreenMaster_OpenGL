@@ -17,7 +17,7 @@ import static org.newdawn.slick.util.ResourceLoader.getResourceAsStream;
 public class OpenGLAssistent {
     public static final int WIDTH = 1280, HEIGHT = 960, TILESIZE = 32;
 
-    public static void LaunchSession(){
+    public static void launchSession(){
         Display.setTitle("GreenMaster");
         try {
             Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
@@ -35,7 +35,7 @@ public class OpenGLAssistent {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public static void DrawQuad(float x, float y, float width, float height){
+    public static void drawQuad(float x, float y, float width, float height){
         glBegin(GL_QUADS);
         glVertex2f(x,y);                                  //top left corner
         glVertex2f(x + width,y);                       //top right corner
@@ -44,7 +44,7 @@ public class OpenGLAssistent {
         glEnd();
     }
 
-    public static void DrawQuadTex(Texture tex, float x, float y, float width, float height){
+    public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
         tex.bind();
         glTranslatef(x,y,0);
         glBegin(GL_QUADS);
@@ -60,7 +60,7 @@ public class OpenGLAssistent {
         glLoadIdentity();
     }
 
-    public static Texture LoadTexture(String path){
+    public static Texture loadTexture(String path){
         Texture tex = null;
         try {
             InputStream in = getResourceAsStream(path);

@@ -17,7 +17,7 @@ public class Tile {
         setY(y);
         setWidth(width);
         setHeight(height);
-        setTexture(LoadTexture(tileType.texturePath));
+        setTexture(loadTexture(tileType.texturePath));
         setTileType(tileType);
     }
 
@@ -34,7 +34,7 @@ public class Tile {
     }
 
     public void draw(){
-        DrawQuadTex(texture, x, y, width, height);
+        drawQuadTex(texture, x, y, width, height);
         if(object!=null){
             object.draw();
         }
