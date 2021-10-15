@@ -1,8 +1,7 @@
 package data;
 
-import data.model.Placable;
-import data.model.Plant;
-import data.model.PlantType;
+import UI.MainMenu;
+import data.model.*;
 import data.ui.*;
 import org.lwjgl.opengl.Display;
 
@@ -47,20 +46,23 @@ public class Boot {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
                     };
 
-        TileGrid grid = new TileGrid(map,40,30);
-        Editor editor = new Editor(grid);
+        TileGrid grid = new TileGrid(map,ROWS,COLUMNS);
+        ToolController handler = new ToolController(grid);
+        MainMenu menuMain = new MainMenu(handler);
+        //EditorTool editor = new EditorTool(grid);
         while (!Display.isCloseRequested()){
 
             //grid.setTile(25,25, TileType.Dirt);
             Tile temp = grid.getTile(22,27);
             temp.setTileType(TileType.Dirt);
-            Placable pine = new Plant(PlantType.Foliage, temp.getX(), temp.getY(),TILESIZE,TILESIZE);
-            TileZone foliage = new TileZone(temp, 1, pine, grid);
+            Placable plant = new Plant(PlantType.Foliage, temp.getX(), temp.getY(),TILESIZE,TILESIZE);
+            TileZone foliage = new TileZone(temp, 1, plant, grid);
             grid.addTileZone(foliage);
             grid.draw();
-            editor.update();
+            menuMain.update();
+            handler.edit();
             Display.update();
-            Display.sync(60);
+            Display.sync(FPS);
         }
 
         Display.destroy();

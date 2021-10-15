@@ -82,7 +82,7 @@ public class TileGrid {
             if(isValidTilePlace(tile, this)){
                 map[tile.getXPlace()][tile.getYPlace()] = tile;
             }else{
-                System.out.println("Tile(x:"+tile.getXPlace()+",Y:"+tile.getYPlace()+") is zoned");
+                //System.out.println("Tile(x:"+tile.getXPlace()+",Y:"+tile.getYPlace()+") is zoned");
             }
 
         }catch (Exception e){

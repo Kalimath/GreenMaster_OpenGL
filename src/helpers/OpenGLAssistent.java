@@ -1,5 +1,6 @@
 package helpers;
 
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -15,7 +16,8 @@ import static org.newdawn.slick.util.ResourceLoader.getResource;
 import static org.newdawn.slick.util.ResourceLoader.getResourceAsStream;
 
 public class OpenGLAssistent {
-    public static final int WIDTH = 1280, HEIGHT = 960, TILESIZE = 32;
+    public static final int WIDTH = 1850, HEIGHT = 960,ROWS = 40,COLUMNS = 30, TILESIZE = 32, FPS = 60;
+    public final double SCALE = 0.01;
 
     public static void launchSession(){
         Display.setTitle("GreenMaster");
@@ -60,14 +62,18 @@ public class OpenGLAssistent {
         glLoadIdentity();
     }
 
-    public static Texture loadTexture(String path){
+    public static Texture loadTextureWithFormat(@NotNull String path, @NotNull String format){
         Texture tex = null;
         try {
             InputStream in = getResourceAsStream(path);
-            tex = TextureLoader.getTexture("PNG",in);
+            tex = TextureLoader.getTexture(format,in);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return tex;
+    }
+
+    public static Texture loadTexture(@NotNull String path){
+        return loadTextureWithFormat(path, "PNG");
     }
 }
