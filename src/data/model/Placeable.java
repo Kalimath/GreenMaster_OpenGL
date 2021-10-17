@@ -4,19 +4,28 @@ import org.newdawn.slick.opengl.Texture;
 
 import static helpers.OpenGLAssistent.drawQuadTex;
 
-public abstract class Placable {
-    protected int  width, height;
+public abstract class Placeable {
+    protected double width,height,length;
     protected float x,y;
     protected String name;
     Texture texture;
 
-    public Placable(Texture texture, String name, float x, float y, int width, int height) {
+    public Placeable(Texture texture, String name, float x, float y, double width, double height, double length) {
         setX(x);
         setY(y);
         setWidth(width);
         setHeight(height);
+        setLength(length);
         setName(name);
         setTexture(texture);
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
     }
 
     public Texture getTexture() {
@@ -43,19 +52,19 @@ public abstract class Placable {
         this.y = y;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    private void setWidth(int width) {
+    private void setWidth(double width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    private void setHeight(int height) {
+    private void setHeight(double height) {
         this.height = height;
     }
 
@@ -68,6 +77,6 @@ public abstract class Placable {
     }
 
     public void draw(){
-        drawQuadTex(texture, x, y, width, height);
+        drawQuadTex(texture, x, y, (float)width, (float)height);
     }
 }

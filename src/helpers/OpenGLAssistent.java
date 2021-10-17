@@ -6,18 +6,17 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.*;
 
-import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.InputStream;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.newdawn.slick.util.ResourceLoader.getResource;
 import static org.newdawn.slick.util.ResourceLoader.getResourceAsStream;
 
 public class OpenGLAssistent {
     public static final int WIDTH = 1850, HEIGHT = 960,ROWS = 40,COLUMNS = 30, TILESIZE = 32, FPS = 60;
-    public final double SCALE = 0.01;
+    public static final double SCALE = 100;
+    //public static final double SCALE = 0.01;
 
     public static void launchSession(){
         Display.setTitle("GreenMaster");
@@ -53,7 +52,7 @@ public class OpenGLAssistent {
         glTexCoord2f(0,0);
         glVertex2f(0,0);
         glTexCoord2f(1,0);
-        glVertex2f(width,0);
+        glVertex2f((float) width,0);
         glTexCoord2f(1,1);
         glVertex2f(width,height);
         glTexCoord2f(0,1);
@@ -71,6 +70,13 @@ public class OpenGLAssistent {
             e.printStackTrace();
         }
         return tex;
+    }
+
+    public static double[] convertDimensionsToScale(double width, double height){
+        double[] dimensions = new double[2];
+        dimensions[0] =  width*SCALE;
+        dimensions[1] = height*SCALE;
+        return dimensions;
     }
 
     public static Texture loadTexture(@NotNull String path){

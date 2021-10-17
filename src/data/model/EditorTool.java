@@ -11,7 +11,7 @@ public class EditorTool extends DesignTool {
 
     public EditorTool(TileGrid grid) {
         super(grid);
-        index = 0;
+        index = 1;
     }
 
     @Override

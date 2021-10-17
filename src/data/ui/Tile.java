@@ -1,6 +1,6 @@
 package data.ui;
 
-import data.model.Placable;
+import data.model.Placeable;
 import org.newdawn.slick.opengl.Texture;
 
 import static helpers.OpenGLAssistent.*;
@@ -10,7 +10,7 @@ public class Tile {
     private float x, y, width, height;
     private Texture texture;
     private TileType tileType;
-    private Placable object;
+    private Placeable object;
 
     public Tile(float x, float y, float width, float height, TileType tileType) {
         setX(x);
@@ -21,11 +21,11 @@ public class Tile {
         setTileType(tileType);
     }
 
-    public Placable getObject() {
+    public Placeable getObject() {
         return object;
     }
 
-    public void setObject(Placable object) {
+    public void setObject(Placeable object) {
         if(IsValidPlace(object,this)){
             this.object = object;
         }else{

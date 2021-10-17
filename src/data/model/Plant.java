@@ -2,13 +2,13 @@ package data.model;
 
 import static helpers.OpenGLAssistent.loadTexture;
 
-public class Plant extends Placable {
+public class Plant extends Placeable {
 
     private PlantType type;
     //protected double length, lengthMax, spaceBetween,age,ageMax;
 
-    public Plant(PlantType type, float x, float y, int width, int height) {
-        super(loadTexture(type.getTexturePath()), type.name(), x, y, width, height);
+    public Plant(PlantType type, float x, float y, double width, double height, double metricLength) {
+        super(loadTexture(type.getTexturePath()), type.name(), x, y, width, height, metricLength);
         this.type = type;
     }
 

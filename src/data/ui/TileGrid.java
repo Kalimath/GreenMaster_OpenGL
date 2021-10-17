@@ -1,6 +1,7 @@
 package data.ui;
 
 import data.exception.InvalidPlaceException;
+import data.model.Placeable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class TileGrid {
                             break;
                         case 1: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Water);
                             break;
+                        case 2: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Path);
+                            break;
                         default: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Dirt);
                             break;
                     }
@@ -59,27 +62,39 @@ public class TileGrid {
     }
 
     public void addTileZone(@NotNull TileZone zone){
-        if(isValidTileZoneForGrid(zone, this)){
+        if(!zones.contains(zone)){
+        boolean isValid = isValidTileZoneForGrid(zone, this);
+        if(!isValid) isValid = isValidTileZoneForGrid(zone, this);
+        if(isValid){
             zones.add(zone);
             for (Tile t: zone.getZone()) {
                 this.setTileZone(zone);
             }
         }else{
+            System.out.println("not placeable");
             throw new InvalidPlaceException(zone.getFiller().getName()+" could not be placed on the given location");
+        }
+        }else {
+            System.out.println("test");
+            throw new InvalidPlaceException(zone.getFiller().getName()+" could not be placed on the given location: TileZone already exists");
         }
 
     }
 
     private void setTileZone(TileZone zone) {
-        for (Tile t: zone.getZone()) {
-            setTile(t);
+        if(!zones.contains(zone)){
+            for (Tile t: zone.getZone()) {
+                setTile(t);
+            }
+            System.out.println("TileZone added to TileGrid");
         }
+
     }
 
     public void setTile(@NotNull Tile tile){
 
         try {
-            if(isValidTilePlace(tile, this)){
+            if(isValidTilePlace(tile, this)||map[tile.getXPlace()][tile.getYPlace()].equals(tile)){
                 map[tile.getXPlace()][tile.getYPlace()] = tile;
             }else{
                 //System.out.println("Tile(x:"+tile.getXPlace()+",Y:"+tile.getYPlace()+") is zoned");
@@ -87,6 +102,7 @@ public class TileGrid {
 
         }catch (Exception e){
             e.printStackTrace();
+            throw new InvalidPlaceException("Tile can't be set to specified location in grid");
         }
     }
 
@@ -122,5 +138,15 @@ public class TileGrid {
         for (TileZone zone: zones) {
             zone.draw();
         }
+    }
+
+    public TileZone getZoneFromPlaceable(@NotNull Placeable object){
+        TileZone zone = null;
+        try{
+            zone = zones.get(zones.indexOf(object));
+        }catch (Exception ignore){
+
+        }
+        return zone;
     }
 }

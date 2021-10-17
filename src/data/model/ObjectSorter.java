@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ObjectSorter {
 
-    public static Deque<Plant> ArrangePlantsBySize(@NotNull List<Plant> unsortedPlants){
+    public static Deque<Plant> arrangePlantsBySize(@NotNull List<Plant> unsortedPlants){
         Deque<Plant> sortedPlants = new LinkedList<>();
         for (Plant p: unsortedPlants) {
             if(p.width>=sortedPlants.getFirst().width){
@@ -18,13 +18,16 @@ public class ObjectSorter {
         return sortedPlants;
     }
 
-    public static Deque<TileZone> ArrangeTileZonesBySize(@NotNull List<TileZone> unsortedZones){
+    public static Deque<TileZone> arrangeTileZonesBySize(@NotNull List<TileZone> unsortedZones){
         Deque<TileZone> sortedZones = new LinkedList<>();
-        for (TileZone p: unsortedZones) {
-            if(p.calculateWidth()*p.calculateHeight()>= sortedZones.getFirst().calculateWidth()*sortedZones.getFirst().calculateHeight()){
-                sortedZones.addFirst(p);
+
+            for (TileZone p: unsortedZones) {
+                if(sortedZones== null||sortedZones.isEmpty()||p.calculateWidth()*p.calculateHeight()>= sortedZones.getFirst().calculateWidth()*sortedZones.getFirst().calculateHeight()){
+                    sortedZones.addFirst(p);
+                }
             }
-        }
+
+
         return sortedZones;
     }
 

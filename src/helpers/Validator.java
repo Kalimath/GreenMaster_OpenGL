@@ -2,7 +2,7 @@ package helpers;
 
 import data.exception.InvalidPlaceException;
 import data.model.Construction;
-import data.model.Placable;
+import data.model.Placeable;
 import data.model.Plant;
 import data.ui.Tile;
 import data.ui.TileGrid;
@@ -12,17 +12,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toSet;
-
 public class Validator {
 
-    public static boolean IsValidPlace(@NotNull Placable object, @NotNull Tile tile){
+    public static boolean IsValidPlace(@NotNull Placeable object, @NotNull Tile tile){
         boolean result = false;
         if(tile.getTileType().isPlantable && object instanceof Plant){
             result = true;
         }else if(tile.getTileType().equals(TileType.Water) && object instanceof Plant && ((Plant) object).getType().isPlantableInWater){
             result = true;
-        }else if(tile.getTileType().isWorkable && object instanceof Construction){
+        }else if(tile.getTileType().isBuildable && object instanceof Construction){
             result = true;
         }else{
             throw new InvalidPlaceException(object.getName()+" could not be placed on the given location");
@@ -51,8 +49,9 @@ public class Validator {
         if (zonesWithoutCurrent.contains(zone)) zonesWithoutCurrent.remove(zone);
 
         for (TileZone tZone: zonesWithoutCurrent) {
-            if (tZone.getZone().stream()
-                    .anyMatch(t -> t.equals(tile))){
+            if (!tZone.equals(zone) && tZone.getZone().stream().anyMatch(tile1 -> tile.equals(tile))){
+                System.out.println("Hash tZone: " + tZone.hashCode());
+                System.out.println("Hash zone: " + zone.hashCode());
                 isValid = false;
             }
         }
@@ -60,7 +59,7 @@ public class Validator {
         return isValid;
     }
 
-    public static void ValidateAndDraw(@NotNull Placable object, @NotNull Tile tile){
+    public static void ValidateAndDraw(@NotNull Placeable object, @NotNull Tile tile){
         if(IsValidPlace(object, tile)){
             object.draw();
         }else{
@@ -73,7 +72,9 @@ public class Validator {
     public static boolean isValidTileZoneForGrid(@NotNull TileZone zone, @NotNull TileGrid grid){
         boolean isValid = true;
         for (Tile t : zone.getZone()) {
-            if (!isValidTilePlaceForZone(t,zone,grid)) isValid = false;
+            if (!grid.getZones().contains(zone)&&!isValidTilePlaceForZone(t,zone,grid)) {
+                isValid = false;
+            }
         }
         return isValid;
     }

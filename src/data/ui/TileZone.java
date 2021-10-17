@@ -1,22 +1,21 @@
 package data.ui;
 
-import data.model.Placable;
+import data.model.Placeable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static helpers.OpenGLAssistent.drawQuadTex;
-import static helpers.OpenGLAssistent.TILESIZE;
+import static helpers.OpenGLAssistent.*;
 
 public class TileZone {
     private List<Tile> zone;
-    private Placable filler;
+    private Placeable filler;
     private TileGrid grid;
     private int xPlaceMostUpperLeft, yPlaceMostUpperLeft, xPlaceMostLowerRight, yPlaceMostLowerRight;
 
     //not tested!!
-    public TileZone(int xCoordMostUpperLeft, int yCoordMostUpperLeft, int xCoordMostLowerRight, int yCoordMostLowerRight, Placable filler, TileGrid grid) {
+    public TileZone(int xCoordMostUpperLeft, int yCoordMostUpperLeft, int xCoordMostLowerRight, int yCoordMostLowerRight, Placeable filler, TileGrid grid) {
         this.zone = new ArrayList<>();
         setFiller(filler);
         this.grid = grid;
@@ -27,11 +26,17 @@ public class TileZone {
         defineZone();
     }
 
-    public TileZone(Tile centerTile, int rayTiles, Placable filler, TileGrid grid) {
+    public TileZone(Tile centerTile, int rayTiles, Placeable filler, TileGrid grid) {
         this.zone = new ArrayList<>();
         setFiller(filler);
         this.grid = grid;
         defineZoneAroundTile(centerTile, rayTiles);
+    }
+
+    public TileZone(Placeable filler, TileGrid grid){
+        this.zone = new ArrayList<>();
+        setFiller(filler);
+        this.grid = grid;
     }
 
     private void defineZoneAroundTile(@NotNull Tile centerTile, int rayTiles) {
@@ -61,11 +66,18 @@ public class TileZone {
         //fill drawn zone with the dedicated filler
         for (int i = yPlaceMostUpperLeft; i < yPlaceMostLowerRight; i++) {
             for (int j = xPlaceMostUpperLeft; j < xPlaceMostLowerRight; j++) {
-                Tile temp = new Tile(j*TILESIZE,i*TILESIZE,TILESIZE,TILESIZE,TileType.Dirt);
-                zone.add(temp);
+                zone.add(grid.getTile(j,i));
             }
         }
         grid.addTileZone(this);
+    }
+
+    public void asignZone(int xCoordMostUpperLeft, int yCoordMostUpperLeft, int xCoordMostLowerRight, int yCoordMostLowerRight) {
+        setxPlaceMostUpperLeft(xCoordMostUpperLeft);
+        setyPlaceMostUpperLeft(yCoordMostUpperLeft);
+        setxPlaceMostLowerRight(xCoordMostLowerRight);
+        setyPlaceMostLowerRight(yCoordMostLowerRight);
+        defineZone();
     }
 
     public void draw(){
@@ -85,11 +97,11 @@ public class TileZone {
         return (xPlaceMostLowerRight-xPlaceMostUpperLeft)*TILESIZE;
     }
 
-    public Placable getFiller() {
+    public Placeable getFiller() {
         return filler;
     }
 
-    private void setFiller(Placable filler) {
+    private void setFiller(Placeable filler) {
         this.filler = filler;
     }
 
