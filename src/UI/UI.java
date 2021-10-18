@@ -88,7 +88,7 @@ public class UI {
       setButton(b);
     }
 
-    private void setButton(Button b) {
+    public void setButton(Button b) {
       if (optionWidth != 0) {
         b.setY(y + (buttonAmount / optionWidth) * TILESIZE);
       }

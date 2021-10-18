@@ -28,7 +28,7 @@ public class ToolController {
 
 
     public void autoGenerate() {
-        if(allowedToGenerate){
+        if(ProgramStateManager.getInstance().getCurrentState() == ProgramState.EDITOR){
             try {
                 System.out.println("generate selected");
                 autoGenerateTool.update();
@@ -39,5 +39,9 @@ public class ToolController {
         }else{
             System.out.println("Warning: generation already executed!");
         }
+    }
+
+    public TileGrid getGrid() {
+        return grid;
     }
 }
