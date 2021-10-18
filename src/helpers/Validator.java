@@ -14,16 +14,22 @@ import java.util.List;
 
 public class Validator {
 
-    public static boolean IsValidPlace(@NotNull Placeable object, @NotNull Tile tile){
+    public static boolean IsValidPlace(@NotNull Placeable object, @NotNull Tile tile, @NotNull TileGrid grid){
         boolean result = false;
-        if(tile.getTileType().isPlantable && object instanceof Plant){
-            result = true;
-        }else if(tile.getTileType().equals(TileType.Water) && object instanceof Plant && ((Plant) object).getType().isPlantableInWater){
-            result = true;
-        }else if(tile.getTileType().isBuildable && object instanceof Construction){
-            result = true;
-        }else{
-            throw new InvalidPlaceException(object.getName()+" could not be placed on the given location");
+        try{
+            if(tile.getTileType().isPlantable && object instanceof Plant){
+                result = true;
+            }else if(tile.getTileType().equals(TileType.Water) && object instanceof Plant && ((Plant) object).getType().isPlantableInWater){
+                result = true;
+            }else if(tile.getTileType().isBuildable && object instanceof Construction){
+                result = true;
+            }else if (grid.getZoneFromPlaceable(object).getZone().contains(tile)){
+                result = true;
+            }else{
+                throw new InvalidPlaceException(object.getName()+" could not be placed on the given location");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return result;
     }
@@ -59,20 +65,20 @@ public class Validator {
         return isValid;
     }
 
-    public static void ValidateAndDraw(@NotNull Placeable object, @NotNull Tile tile){
-        if(IsValidPlace(object, tile)){
-            object.draw();
-        }else{
-            throw new InvalidPlaceException(object.getName()+" could not be placed on the given location");
-        }
-    }
+//    public static void ValidateAndDraw(@NotNull Placeable object, @NotNull Tile tile){
+//        if(IsValidPlace(object, tile)){
+//            object.draw();
+//        }else{
+//            throw new InvalidPlaceException(object.getName()+" could not be placed on the given location");
+//        }
+//    }
 
 
     //checks if a TileZone can be placed in the grid on a specific location without interfering with other zones
     public static boolean isValidTileZoneForGrid(@NotNull TileZone zone, @NotNull TileGrid grid){
         boolean isValid = true;
         for (Tile t : zone.getZone()) {
-            if (!grid.getZones().contains(zone)&&!isValidTilePlaceForZone(t,zone,grid)) {
+            if (grid.isInTileZone(t.getXPlace(),t.getYPlace())) {
                 isValid = false;
             }
         }

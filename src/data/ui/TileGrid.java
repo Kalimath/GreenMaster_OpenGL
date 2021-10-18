@@ -64,11 +64,12 @@ public class TileGrid {
     public void addTileZone(@NotNull TileZone zone){
         if(!zones.contains(zone)){
         boolean isValid = isValidTileZoneForGrid(zone, this);
-        if(!isValid) isValid = isValidTileZoneForGrid(zone, this);
         if(isValid){
             zones.add(zone);
             for (Tile t: zone.getZone()) {
-                this.setTileZone(zone);
+                this.setTile(t);
+                t.setObject(zone.getFiller(), this);
+
             }
         }else{
             System.out.println("not placeable");
@@ -143,10 +144,27 @@ public class TileGrid {
     public TileZone getZoneFromPlaceable(@NotNull Placeable object){
         TileZone zone = null;
         try{
-            zone = zones.get(zones.indexOf(object));
+            boolean b = false;
+            for (TileZone zone1 : zones) {
+                if (zone1.getFiller().equals(object)) {
+                    zone = zones.get(zones.indexOf(zone1));
+                    break;
+                }
+            }
         }catch (Exception ignore){
 
         }
         return zone;
+    }
+
+    public boolean isInTileZone(int xPlace, int yPlace){
+        boolean result = false;
+        for (TileZone zone : zones) {
+            if(zone.getZone().contains(getTile(xPlace,yPlace))){
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

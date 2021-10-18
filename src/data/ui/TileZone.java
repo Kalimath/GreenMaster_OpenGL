@@ -23,7 +23,7 @@ public class TileZone {
         setyPlaceMostUpperLeft(yCoordMostUpperLeft);
         setxPlaceMostLowerRight(xCoordMostLowerRight);
         setyPlaceMostLowerRight(yCoordMostLowerRight);
-        defineZone();
+        asignZone(xPlaceMostUpperLeft, yPlaceMostUpperLeft, xPlaceMostLowerRight, yPlaceMostLowerRight);
     }
 
     public TileZone(Tile centerTile, int rayTiles, Placeable filler, TileGrid grid) {

@@ -25,8 +25,8 @@ public class Tile {
         return object;
     }
 
-    public void setObject(Placeable object) {
-        if(IsValidPlace(object,this)){
+    public void setObject(Placeable object, TileGrid grid) {
+        if(IsValidPlace(object,this, grid)){
             this.object = object;
         }else{
             System.out.println("ERROR: Invalid place for object " + object.getName());

@@ -52,10 +52,10 @@ public class Boot {
         MainMenu menuMain = new MainMenu(handler);
         Tile temp = grid.getTile(22,27);
         Placeable plant = new Plant(PlantType.Foliage, temp.getX(), temp.getY(),1.5,1.5, 1.45);
+        Placeable plant2 = new Plant(PlantType.Ferns, temp.getX(), temp.getY(),.75,.75, 1);
         inventory.add(plant);
-        //TileZone foliage = new TileZone(temp, 1, plant, grid);
-        //grid.addTileZone(foliage);
-        //EditorTool editor = new EditorTool(grid);
+        inventory.add(plant2);
+
         while (!Display.isCloseRequested()){
 
             //grid.setTile(25,25, TileType.Dirt);

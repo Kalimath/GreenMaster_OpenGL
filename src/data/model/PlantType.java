@@ -4,7 +4,8 @@ public enum PlantType {
     HighTree("res/textures/plants/9.png", false, true,false,false,"High tree"),
     Bush("res/textures/plants/1.png", false, false,false,true,"High bush"),
     Birch("res/textures/plants/5.png", true, true,false,false,"Birch tree"),
-    Foliage("res/textures/plants/foliage5.png", true, false,false,false,"Some small foliage");
+    Foliage("res/textures/plants/foliage5.png", true, false,false,false,"Some small foliage"),
+    Ferns("res/textures/plants/foliage9.png", true, false,false,false,"Some small foliage");
 
     public final String texturePath, info;
     public final boolean isWide, isHigh, isPlantableInWater,isPlantableInPot;

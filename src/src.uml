@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/Hobby/Moestuin/Software/Software met OpenGL/GreenMaster_OpenGL/src</OriginalElement>
+  <nodes>
+    <node x="0.0" y="948.0">data.model.AutoGenerateTool</node>
+    <node x="0.0" y="453.0">data.ui.TileZone</node>
+    <node x="326.0" y="453.0">data.model.PlantType</node>
+    <node x="0.0" y="1117.0">data.model.Inventory</node>
+    <node x="1172.0" y="453.0">data.ui.TileType</node>
+    <node x="342.0" y="295.5">data.model.Construction</node>
+    <node x="272.0" y="959.5">data.model.EditorTool</node>
+    <node x="261.0" y="1286.0">data.exception.InvalidPlaceException</node>
+    <node x="1137.0" y="1117.0">data.Boot</node>
+    <node x="0.0" y="0.0">UI.UI</node>
+    <node x="860.0" y="1117.0">data.model.ToolController</node>
+    <node x="1112.0" y="842.0">helpers.Validator</node>
+    <node x="564.0" y="453.0">data.ui.TileGrid</node>
+    <node x="886.0" y="453.0">data.ui.Tile</node>
+    <node x="458.0" y="1117.0">data.model.ObjectSorter</node>
+    <node x="0.0" y="1286.0">data.exception.AutoGenerateException</node>
+    <node x="219.0" y="1117.0">UI.MainMenu</node>
+    <node x="542.0" y="0.0">data.model.Placeable</node>
+    <node x="756.0" y="284.0">data.model.Plant</node>
+    <node x="27.5" y="217.0">UI.UI.Menu</node>
+    <node x="768.0" y="842.0">data.model.Organiser</node>
+    <node x="1129.0" y="0.0">helpers.OpenGLAssistent</node>
+    <node x="471.0" y="842.0">UI.Button</node>
+    <node x="158.0" y="842.0">data.model.DesignTool</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="UI.UI.Menu" target="UI.UI" relationship="INNER_CLASS">
+      <point x="0.0" y="-95.5" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="data.model.EditorTool" target="data.model.DesignTool" relationship="GENERALIZATION">
+      <point x="0.0" y="-50.5" />
+      <point x="349.0" y="923.0" />
+      <point x="237.5" y="923.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="data.model.AutoGenerateTool" target="data.model.DesignTool" relationship="GENERALIZATION">
+      <point x="0.0" y="-62.0" />
+      <point x="126.0" y="923.0" />
+      <point x="237.5" y="923.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="data.model.Construction" target="data.model.Placeable" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="539.0" y="259.0" />
+      <point x="729.5" y="259.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+    <edge source="data.model.Plant" target="data.model.Placeable" relationship="GENERALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="920.0" y="259.0" />
+      <point x="729.5" y="259.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.8127753303964758" showDependencies="false" x="728.0000000000001" y="671.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+
