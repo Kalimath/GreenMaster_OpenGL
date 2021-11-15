@@ -1,13 +1,13 @@
 package data.model;
 
-import data.ui.TileGrid;
+import data.ui.grid.GardenGrid;
 import data.ui.TileType;
 
 public abstract class DesignTool {
-    protected TileGrid grid;
+    protected GardenGrid grid;
     protected TileType[] tileTypes;
 
-    public DesignTool(TileGrid grid) {
+    public DesignTool(GardenGrid grid) {
         this.grid = grid;
         setTileTypes();
     }

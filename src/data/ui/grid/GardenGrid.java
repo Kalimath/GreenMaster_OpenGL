@@ -1,63 +1,63 @@
-package data.ui;
+package data.ui.grid;
 
 import data.exception.InvalidPlaceException;
 import data.model.Placeable;
+import data.ui.TileType;
+import data.ui.TileZone;
+import data.ui.tiles.GroundTile;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import static com.wagnerandade.coollection.Coollection.*;
 import static helpers.Validator.*;
 import static helpers.OpenGLAssistent.*;
 
-
-public class TileGrid {
-    public Tile[][] map;
+public class GardenGrid extends Grid {
+    public GroundTile[][] map;
     private List<TileZone> zones;
 
-    public TileGrid(int rows,int columns){
+    public GardenGrid(int rows, int columns){
         zones = new ArrayList<>();
         try {
             setGrid(rows,columns);
         }catch (Exception e){
             e.fillInStackTrace();
         }
-
     }
 
-    public TileGrid(int[][] newMap,int rows,int columns) {
+    public GardenGrid(int[][] newMap, int rows, int columns) {
         this(rows,columns);
         convertToGrid(newMap);
-
     }
 
     private void convertToGrid(int[][] newMap){
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[i].length; j++) {
                     switch (newMap[j][i]){
-                        case 0: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Grass);
+                        case 0: map[i][j] = new GroundTile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Grass);
                             break;
-                        case 1: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Water);
+                        case 1: map[i][j] = new GroundTile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Water);
                             break;
-                        case 2: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Path);
+                        case 2: map[i][j] = new GroundTile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Path);
                             break;
-                        default: map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Dirt);
+                        default: map[i][j] = new GroundTile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Dirt);
                             break;
                     }
                 }
             }
     }
 
-    private void setGrid(int rows, int columns) throws IllegalArgumentException{
+    @Override
+    protected void setGrid(int rows, int columns) throws IllegalArgumentException{
         if(rows>0&&columns>0){
-            map = new Tile[rows][columns];
+            map = new GroundTile[rows][columns];
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[i].length; j++) {
-                    map[i][j] = new Tile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Grass);
+                    map[i][j] = new GroundTile(i*TILESIZE,j*TILESIZE,TILESIZE,TILESIZE, TileType.Grass);
                 }
             }
         }else{
-            throw new IllegalArgumentException("Could not create TileGrid with given dimensions");
+            throw new IllegalArgumentException("Could not create GardenGrid with given dimensions");
         }
     }
 
@@ -66,9 +66,9 @@ public class TileGrid {
         boolean isValid = isValidTileZoneForGrid(zone, this);
         if(isValid){
             zones.add(zone);
-            for (Tile t: zone.getZone()) {
+            for (GroundTile t: zone.getZone()) {
                 this.setTile(t);
-                t.setObject(zone.getFiller(), this);
+                t.setPlaceable(zone.getFiller(), this);
 
             }
         }else{
@@ -84,46 +84,46 @@ public class TileGrid {
 
     private void setTileZone(TileZone zone) {
         if(!zones.contains(zone)){
-            for (Tile t: zone.getZone()) {
+            for (GroundTile t: zone.getZone()) {
                 setTile(t);
             }
-            System.out.println("TileZone added to TileGrid");
+            System.out.println("TileZone added to GardenGrid");
         }
 
     }
 
-    public void setTile(@NotNull Tile tile){
+    public void setTile(@NotNull GroundTile groundTile){
 
         try {
-            if(isValidTilePlace(tile, this)||map[tile.getXPlace()][tile.getYPlace()].equals(tile)){
-                map[tile.getXPlace()][tile.getYPlace()] = tile;
+            if(isValidTilePlace(groundTile, this)||map[groundTile.getXPlace()][groundTile.getYPlace()].equals(groundTile)){
+                map[groundTile.getXPlace()][groundTile.getYPlace()] = groundTile;
             }else{
-                //System.out.println("Tile(x:"+tile.getXPlace()+",Y:"+tile.getYPlace()+") is zoned");
+                //System.out.println("GroundTile(x:"+groundTile.getXPlace()+",Y:"+groundTile.getYPlace()+") is zoned");
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            throw new InvalidPlaceException("Tile can't be set to specified location in grid");
+            throw new InvalidPlaceException("GroundTile can't be set to specified location in grid");
         }
     }
 
     public void setTile(int xCoord, int yCoord, @NotNull TileType type){
         try {
-            setTile(new Tile(xCoord*TILESIZE,yCoord*TILESIZE,TILESIZE,TILESIZE, type));
-            //map[xCoord][yCoord] = new Tile(xCoord*TILESIZE,yCoord*TILESIZE,TILESIZE,TILESIZE, type);
+            setTile(new GroundTile(xCoord*TILESIZE,yCoord*TILESIZE,TILESIZE,TILESIZE, type));
+            //map[xCoord][yCoord] = new GroundTile(xCoord*TILESIZE,yCoord*TILESIZE,TILESIZE,TILESIZE, type);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public Tile getTile(int xPlace, int yPlace){
+    public GroundTile getTile(int xPlace, int yPlace){
         return map[xPlace][yPlace];
     }
 
     public void draw(){
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                Tile t = map[i][j];
+                GroundTile t = map[i][j];
                 t.draw();
             }
         }

@@ -1,15 +1,15 @@
 package data.model;
 
 import data.exception.AutoGenerateException;
-import data.ui.TileGrid;
+import data.ui.grid.GardenGrid;
 
 public class ToolController {
-    private TileGrid grid;
+    private GardenGrid grid;
     private DesignTool editorTool;
     private DesignTool autoGenerateTool;
     private boolean allowedToGenerate;
 
-    public ToolController(TileGrid grid, Inventory inventory){
+    public ToolController(GardenGrid grid, Inventory inventory){
         this.grid = grid;
         allowedToGenerate = true;
         editorTool = new EditorTool(grid);
@@ -41,7 +41,7 @@ public class ToolController {
         }
     }
 
-    public TileGrid getGrid() {
+    public GardenGrid getGrid() {
         return grid;
     }
 }

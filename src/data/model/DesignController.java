@@ -3,15 +3,14 @@ package data.model;
 import UI.LargeMenu;
 import UI.MainMenu;
 import UI.SideBarMenu;
-import data.ui.Tile;
-import data.ui.TileGrid;
-import org.lwjgl.input.Mouse;
+import data.ui.grid.GardenGrid;
+import data.ui.tiles.GroundTile;
 
 import static helpers.OpenGLAssistent.*;
 
 public class DesignController {
 
-    private TileGrid grid;
+    private GardenGrid grid;
     private Inventory inventory;
     private ToolController handler;
     private LargeMenu sideBarMenu,mainMenu;
@@ -50,14 +49,14 @@ public class DesignController {
     };
 
     public DesignController() {
-        grid = new TileGrid(map,ROWS,COLUMNS);
+        grid = new GardenGrid(map,ROWS,COLUMNS);
         inventory = new Inventory();
         handler = new ToolController(grid, inventory);
         sideBarMenu = new SideBarMenu(handler);
         mainMenu = new MainMenu(handler);
 
         //temp variables
-        Tile temp = grid.getTile(22,27);
+        GroundTile temp = grid.getTile(22,27);
         Placeable plant = new Plant(PlantType.Foliage, temp.getX(), temp.getY(),1.5,1.5, 1.45);
         Placeable plant2 = new Plant(PlantType.Ferns, temp.getX(), temp.getY(),.75,.75, 1);
         inventory.add(plant);

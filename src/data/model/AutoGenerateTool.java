@@ -1,13 +1,13 @@
 package data.model;
 
-import data.ui.TileGrid;
+import data.ui.grid.GardenGrid;
 
 public class AutoGenerateTool extends DesignTool {
 
     Organiser organiser;
     private Inventory objectsForPlacement;
 
-    public AutoGenerateTool(TileGrid grid, Inventory objectsForPlacement) {
+    public AutoGenerateTool(GardenGrid grid, Inventory objectsForPlacement) {
         super(grid);
         this.objectsForPlacement = objectsForPlacement;
         organiser = new Organiser(grid, objectsForPlacement);

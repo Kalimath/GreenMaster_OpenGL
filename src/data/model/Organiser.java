@@ -1,8 +1,8 @@
 package data.model;
 
 import data.exception.AutoGenerateException;
-import data.ui.Tile;
-import data.ui.TileGrid;
+import data.ui.tiles.GroundTile;
+import data.ui.grid.GardenGrid;
 import data.ui.TileZone;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,12 +14,12 @@ import static helpers.OpenGLAssistent.TILESIZE;
 import static helpers.OpenGLAssistent.convertDimensionsToScale;
 
 public class Organiser {
-    private TileGrid grid;
+    private GardenGrid grid;
     private Inventory inventory;
     private ObjectSorter sorter;
     private int[][] collisionMap;
 
-    public Organiser(TileGrid grid, Inventory inventory) {
+    public Organiser(GardenGrid grid, Inventory inventory) {
         this.grid = grid;
         collisionMap = new int[grid.map.length][grid.map[0].length];
         this.inventory = inventory;
@@ -28,7 +28,7 @@ public class Organiser {
 
     //sets collisionFreeMap with 0 if not suited(like water), else 1
     public void setCollisionMap(){
-        Tile[][] map = grid.map;
+        GroundTile[][] map = grid.map;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (!map[i][j].getTileType().isBuildable||map[i][j].getObject()!=null||grid.isInTileZone(i,j)){
@@ -46,21 +46,21 @@ public class Organiser {
 
     //puts objects in the grid depending on the collision, size and height
     public void getComposedGrid(){
-        Tile[][] map = grid.map;
+        GroundTile[][] map = grid.map;
         List<TileZone> zones = new ArrayList<>();
         try{
             for (Placeable object: inventory.getObjects()) {
                 zones.add(createTileZoneForPlaceable(object));
             }
             Deque<TileZone> sortedZones = sorter.arrangeTileZonesBySize(zones);
-            System.out.println("Sorted items for TileGrid!");
+            System.out.println("Sorted items for GardenGrid!");
             int amount = sortedZones.size();
             System.out.println("SortedZones length: "+amount);
             while (!sortedZones.isEmpty()) {
                 placeObjectInGrid(sortedZones.pollFirst());
             }
 
-            System.out.println("placed all "+amount+" objects in TileGrid!");
+            System.out.println("placed all "+amount+" objects in GardenGrid!");
 
         }catch (Exception e){
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class Organiser {
 
                         if (hasDesignatedSpace(j, i,xPlaceMostLowerRight,yPlaceMostLowerRight)) {
                             objectzone.asignZone(j*TILESIZE, i*TILESIZE, xPlaceMostLowerRight*TILESIZE, yPlaceMostLowerRight*TILESIZE);
-                            System.out.println("placed "+objectzone.getClass().getSimpleName()+" in TileGrid with upperleft: ("+j+","+i+")!");
+                            System.out.println("placed "+objectzone.getClass().getSimpleName()+" in GardenGrid with upperleft: ("+j+","+i+")!");
 
                             asigned = true;
                             break;

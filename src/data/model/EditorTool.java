@@ -1,6 +1,6 @@
 package data.model;
 
-import data.ui.TileGrid;
+import data.ui.grid.GardenGrid;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -9,7 +9,7 @@ import static helpers.OpenGLAssistent.*;
 public class EditorTool extends DesignTool {
      private int index;
 
-    public EditorTool(TileGrid grid) {
+    public EditorTool(GardenGrid grid) {
         super(grid);
         index = 1;
     }
@@ -17,7 +17,7 @@ public class EditorTool extends DesignTool {
     @Override
     public void set(){
         if(Mouse.getX() < (TILESIZE*ROWS) && Mouse.getY() < (TILESIZE*COLUMNS)){
-            //System.out.println("Mouse X: " + Mouse.getX() + "Tile x: " + (Math.floor(Mouse.getX() / TILESIZE)) + ", Tile Y: " + ((HEIGHT - Mouse.getY() - 1) / TILESIZE));
+            //System.out.println("Mouse X: " + Mouse.getX() + "GroundTile x: " + (Math.floor(Mouse.getX() / TILESIZE)) + ", GroundTile Y: " + ((HEIGHT - Mouse.getY() - 1) / TILESIZE));
             grid.setTile((int)Math.floor(Mouse.getX()/TILESIZE), (int)Math.floor((HEIGHT-Mouse.getY()-1)/TILESIZE), tileTypes[index]);
         }
 
