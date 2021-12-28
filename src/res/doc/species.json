@@ -1,1 +1,13 @@
-[]
+[{
+  "name": "Oak",
+  "info": "Oak is a genus of deciduous trees. This genus includes both deciduous and evergreen trees. When people speak of the oak in Dutch, it usually refers to the pedunculate oak. Oak wood is used for various purposes.",
+  "isWide": false,
+  "ishigh": true,
+  "isPlantableInWater": false,
+  "isPlantableInPot": false,
+  "width": 15.0,
+  "height": 15.0,
+  "length": 30.0
+}
+
+]

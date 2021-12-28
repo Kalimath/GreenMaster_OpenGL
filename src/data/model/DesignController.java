@@ -3,6 +3,8 @@ package data.model;
 import UI.LargeMenu;
 import UI.MainMenu;
 import UI.SideBarMenu;
+import data.services.specie.SpecieDatabaseServiceJSON;
+import data.services.specie.SpecieDatabaseServiceStrategy;
 import data.ui.grid.GardenGrid;
 import data.ui.tiles.GroundTile;
 
@@ -14,6 +16,7 @@ public class DesignController {
     private Inventory inventory;
     private ToolController handler;
     private LargeMenu sideBarMenu,mainMenu;
+    public SpecieDatabaseServiceStrategy specieDB;
 
     private static int[][] map = {
             {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -54,6 +57,9 @@ public class DesignController {
         handler = new ToolController(grid, inventory);
         sideBarMenu = new SideBarMenu(handler);
         mainMenu = new MainMenu(handler);
+        specieDB = new SpecieDatabaseServiceJSON();
+
+        System.out.println(specieDB.getAll());
 
         //temp variables
         GroundTile temp = grid.getTile(22,27);
