@@ -20,6 +20,9 @@ public abstract class Placeable {
         setTexture(texture);
     }
 
+    public Placeable() {
+    }
+
     public double getLength() {
         return length;
     }
@@ -32,7 +35,7 @@ public abstract class Placeable {
         return texture;
     }
 
-    private void setTexture(Texture texture) {
+    protected void setTexture(Texture texture) {
         this.texture = texture;
     }
 
@@ -40,7 +43,7 @@ public abstract class Placeable {
         return x;
     }
 
-    private void setX(float x) {
+    protected void setX(float x) {
         this.x = x;
     }
 
@@ -48,7 +51,7 @@ public abstract class Placeable {
         return y;
     }
 
-    private void setY(float y) {
+    protected void setY(float y) {
         this.y = y;
     }
 
@@ -56,7 +59,7 @@ public abstract class Placeable {
         return width;
     }
 
-    private void setWidth(double width) {
+    protected void setWidth(double width) {
         this.width = width;
     }
 
@@ -64,7 +67,7 @@ public abstract class Placeable {
         return height;
     }
 
-    private void setHeight(double height) {
+    protected void setHeight(double height) {
         this.height = height;
     }
 
@@ -72,9 +75,11 @@ public abstract class Placeable {
         return name;
     }
 
-    private void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
+
+
 
     public void draw(){
         drawQuadTex(texture, x, y, (float)width, (float)height);

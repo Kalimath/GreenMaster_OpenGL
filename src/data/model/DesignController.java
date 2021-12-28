@@ -57,10 +57,29 @@ public class DesignController {
 
         //temp variables
         GroundTile temp = grid.getTile(22,27);
-        Placeable plant = new Plant(PlantType.Foliage, temp.getX(), temp.getY(),1.5,1.5, 1.45);
-        Placeable plant2 = new Plant(PlantType.Ferns, temp.getX(), temp.getY(),.75,.75, 1);
+        Placeable plant = new Plant.Builder()
+                            .plantType(PlantType.Foliage)
+                            .x(temp.getX())
+                            .y(temp.getY())
+                            .length(1.5)
+                            .width(1.5)
+                            .height(1.45)
+                            .Build();
+
+        //(PlantType.Foliage, temp.getX(), temp.getY(),1.5,1.5, 1.45);
+        //Placeable plant2 = new Plant(PlantType.Ferns, temp.getX(), temp.getY(),.75,.75, 1);
+
+        Placeable plant3 = new Plant.Builder()
+                            .plantType(PlantType.Ferns)
+                            .x(temp.getX())
+                            .y(temp.getY())
+                            .length(1)
+                            .width(.75)
+                            .height(.75)
+                            .Build();
+
         inventory.add(plant);
-        inventory.add(plant2);
+        inventory.add(plant3);
     }
 
     public void update() {

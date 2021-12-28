@@ -27,16 +27,16 @@ public class Organiser {
     }
 
     //sets collisionFreeMap with 0 if not suited(like water), else 1
-    public void setCollisionMap(){
+    public void setCollisionMap() {
         GroundTile[][] map = grid.map;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                if (!map[i][j].getTileType().isBuildable||map[i][j].getObject()!=null||grid.isInTileZone(i,j)){
-                    collisionMap[i][j]=0;
-                }else {
-                    collisionMap[i][j]=1;
-                    if(i==17&&j==0){
-                        System.out.println(i+","+j);
+                if (!map[i][j].getTileType().isBuildable || map[i][j].getObject() != null || grid.isInTileZone(i, j)) {
+                    collisionMap[i][j] = 0;
+                } else {
+                    collisionMap[i][j] = 1;
+                    if (i == 17 && j == 0) {
+                        System.out.println(i + "," + j);
                     }
                 }
             }
@@ -45,24 +45,24 @@ public class Organiser {
     }
 
     //puts objects in the grid depending on the collision, size and height
-    public void getComposedGrid(){
+    public void getComposedGrid() {
         GroundTile[][] map = grid.map;
         List<TileZone> zones = new ArrayList<>();
-        try{
-            for (Placeable object: inventory.getObjects()) {
+        try {
+            for (Placeable object : inventory.getObjects()) {
                 zones.add(createTileZoneForPlaceable(object));
             }
             Deque<TileZone> sortedZones = sorter.arrangeTileZonesBySize(zones);
             System.out.println("Sorted items for GardenGrid!");
             int amount = sortedZones.size();
-            System.out.println("SortedZones length: "+amount);
+            System.out.println("SortedZones length: " + amount);
             while (!sortedZones.isEmpty()) {
                 placeObjectInGrid(sortedZones.pollFirst());
             }
 
-            System.out.println("placed all "+amount+" objects in GardenGrid!");
+            System.out.println("placed all " + amount + " objects in GardenGrid!");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new AutoGenerateException("Grid with objects failed to compose: invalid place for object!");
         }
@@ -71,15 +71,14 @@ public class Organiser {
     }
 
     //Creates a zone with collision for the placeable
-    public TileZone createTileZoneForPlaceable(@NotNull Placeable placeable){
+    public TileZone createTileZoneForPlaceable(@NotNull Placeable placeable) {
         TileZone objectZone = new TileZone(placeable, grid);
         System.out.println("TileZone generated for object!");
         return objectZone;
     }
 
-    //TODO
     //places object in the grid at the most suitable place
-    public void placeObjectInGrid(@NotNull TileZone objectzone){
+    public void placeObjectInGrid(@NotNull TileZone objectzone) {
         try {
             double[] dimensions = convertDimensionsToScale(objectzone.getFiller().width, objectzone.getFiller().height);
             System.out.println(dimensions[0]);
@@ -87,45 +86,45 @@ public class Organiser {
 
             //itereer over map en als xlefttop vrij is daar plaatsen
             for (int i = 0; i < collisionMap.length; i++) {
-            for (int j = 0; j < collisionMap[0].length; j++) {
-                System.out.println("collisionFreeMap.length: "+ collisionMap.length);
-                System.out.println("collisionFreeMap[0].length: "+ collisionMap[0].length);
+                for (int j = 0; j < collisionMap[0].length; j++) {
+                    System.out.println("collisionFreeMap.length: " + collisionMap.length);
+                    System.out.println("collisionFreeMap[0].length: " + collisionMap[0].length);
                     if (collisionMap[i][j] == 1) {
                         int diameter = (int) Math.floor(dimensions[0]);
-                        int xPlaceMostLowerRight = j+(diameter/TILESIZE);
-                        int yPlaceMostLowerRight = i+(diameter/TILESIZE);
+                        int xPlaceMostLowerRight = j + (diameter / TILESIZE);
+                        int yPlaceMostLowerRight = i + (diameter / TILESIZE);
 
-                        if (hasDesignatedSpace(j, i,xPlaceMostLowerRight,yPlaceMostLowerRight)) {
-                            objectzone.asignZone(j*TILESIZE, i*TILESIZE, xPlaceMostLowerRight*TILESIZE, yPlaceMostLowerRight*TILESIZE);
-                            System.out.println("placed "+objectzone.getClass().getSimpleName()+" in GardenGrid with upperleft: ("+j+","+i+")!");
+                        if (hasDesignatedSpace(j, i, xPlaceMostLowerRight, yPlaceMostLowerRight)) {
+                            objectzone.asignZone(j * TILESIZE, i * TILESIZE, xPlaceMostLowerRight * TILESIZE, yPlaceMostLowerRight * TILESIZE);
+                            System.out.println("placed " + objectzone.getClass().getSimpleName() + " in GardenGrid with upperleft: (" + j + "," + i + ")!");
 
                             asigned = true;
                             break;
                         }
                     }
                 }
-                if(asigned) break;
+                if (asigned) break;
             }
 
             setCollisionMap();
 
-            System.out.println("#zones: "+grid.getZones().size());
-        }catch (Exception e){
+            System.out.println("#zones: " + grid.getZones().size());
+        } catch (Exception e) {
             e.printStackTrace();
             throw new AutoGenerateException(e.getMessage());
         }
     }
 
-    public boolean hasDesignatedSpace(int xPlaceMostUpperLeft, int yPlaceMostUpperLeft,int xPlaceMostLowerRight,int yPlaceMostLowerRight){
+    public boolean hasDesignatedSpace(int xPlaceMostUpperLeft, int yPlaceMostUpperLeft, int xPlaceMostLowerRight, int yPlaceMostLowerRight) {
         boolean isValid = true;
         for (int x = yPlaceMostUpperLeft; x < yPlaceMostLowerRight; x++) {
             for (int y = xPlaceMostUpperLeft; y < xPlaceMostLowerRight; y++) {
-                if(collisionMap[y][x] == 0) {
+                if (collisionMap[y][x] == 0) {
                     isValid = false;
                     break;
                 }
             }
-            if(!isValid)break;
+            if (!isValid) break;
         }
         return isValid;
     }
