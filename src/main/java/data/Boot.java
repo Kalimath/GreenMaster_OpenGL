@@ -1,0 +1,35 @@
+package data;
+
+import data.model.*;
+import org.lwjgl.opengl.Display;
+
+import static helpers.OpenGLAssistent.*;
+
+public class Boot {
+
+    public Boot(){
+
+        launchSession();
+
+        DesignController controller = new DesignController();
+
+
+        while (!Display.isCloseRequested()){
+            try{
+                controller.update();
+                Display.update();
+                Display.sync(FPS);
+            }catch (Exception ignore){
+                ignore.printStackTrace();
+            }
+
+        }
+
+        Display.destroy();
+    }
+
+
+    public static void main (String[] args){
+        new Boot();
+    }
+}

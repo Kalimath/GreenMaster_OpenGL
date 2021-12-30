@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GreenMaster_OpenGL" target="11" />
+      <module name="GreenMaster_OpenGL" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
